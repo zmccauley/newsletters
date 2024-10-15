@@ -1,0 +1,33 @@
+services:
+  api:
+    build:
+      context: ./api
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./api:/api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  client:
+    build:
+      context: ./client
+    volumes:
+      - ./client:/client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api 
+
+  db:
+    image: postgres:17
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: newsletters 
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: postgres 
+
+volumes:
+  postgres_data:
