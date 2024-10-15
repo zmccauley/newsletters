@@ -2,8 +2,11 @@ FROM node:22-slim
 
 WORKDIR /client
 
+RUN npm install -g next@14.2.15
+
 COPY package.json /client/
 COPY package-lock.json /client/
+COPY .next/ /client/.next/
 
 RUN npm install
 
