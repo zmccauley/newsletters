@@ -1,5 +1,6 @@
 services:
   api:
+    container_name: newsletter-api
     build:
       context: ./api
     command: python manage.py runserver 0.0.0.0:8000
@@ -11,6 +12,7 @@ services:
       - db
 
   client:
+    container_name: newsletter-client
     build:
       context: ./client
     volumes:
@@ -21,6 +23,7 @@ services:
       - api 
 
   db:
+    container_name: newsletter-db
     image: postgres:17
     volumes:
       - postgres_data:/var/lib/postgresql/data
